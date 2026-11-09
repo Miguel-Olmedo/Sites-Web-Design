@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padaria Nossa Senhora Aparecida</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+    <!-- Faixa no topo com telefone -->
+    <div class="top-bar">
+        📞 Telefone para pedidos e encomendas: <strong>(14) 3646-3465</strong>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-sub">Padaria</span>
+                <span class="logo-text">Nossa Senhora Aparecida</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#cardapio">Cardápio</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Qualidade e Tradição</h1>
+            <p>O pão mais quentinho e gostoso do seu bairro!</p>
+            <a href="#cardapio" class="btn-hero">Ver Nosso Cardápio</a>
+        </div>
+    </section>
+
+    <!-- Cardápio / Produtos -->
+    <main class="container" id="cardapio">
+        <h2 class="titulo-secao">Nosso Cardápio</h2>
+
+        <div class="cardapio-grid">
+            
+            <!-- Categoria: Pães -->
+            <div class="card-categoria">
+                <img src="IMG/PãoFrances.webp" alt="Pães Frescos" class="card-img">
+                <div class="card-conteudo">
+                    <h3>🥖 Pães</h3>
+                    <div class="item-linha">
+                        <span class="item-nome">Pão Francês </span>
+                        <span class="item-preco">R$ 1,00</span>
+                    </div>
+                    <div class="item-linha">
+                        <span class="item-nome">Pão de Queijo</span>
+                        <span class="item-preco">R$ 5,50</span>
+                    </div>
+                    <div class="item-linha">
+                        <span class="item-nome">Pão Doce Tradicional</span>
+                        <span class="item-preco">R$ 4,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categoria: Salgados -->
+            <div class="card-categoria">
+                <img src="IMG/salgado.jpg" alt="Salgados Assados e Fritos" class="card-img">
+                <div class="card-conteudo">
+                    <h3>🥐 Salgados</h3>
+                    <div class="item-linha">
+                        <span class="item-nome">Coxinha de Frango</span>
+                        <span class="item-preco">R$ 5,00</span>
+                    </div>
+                    <div class="item-linha">
+                        <span class="item-nome">Empada de Palmito</span>
+                        <span class="item-preco">R$ 6,50</span>
+                    </div>
+                    <div class="item-linha">
+                        <span class="item-nome">Enrolado de Presunto e Queijo</span>
+                        <span class="item-preco">R$ 6,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categoria: Doces -->
+            <div class="card-categoria">
+                <img src="IMG/doces.jpg" alt="Doces e Bolos" class="card-img">
+                <div class="card-conteudo">
+                    <h3>🍰 Doces & Confeitaria</h3>
+                    <div class="item-linha">
+                        <span class="item-nome">Sonho de Creme</span>
+                        <span class="item-preco">R$ 5,00</span>
+                    </div>
+                    <div class="item-linha">
+                        <span class="item-nome">Fatia de Bolo Caseiro</span>
+                        <span class="item-preco">R$ 8,00</span>
+                    </div>
+                    <div class="item-linha">
+                        <span class="item-nome">Torta Doce (Fatia)</span>
+                        <span class="item-preco">R$ 10,00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div style="text-align: center; margin-top: 2.5rem;">
+    <a href="cardapio.html" class="btn-hero">📜 Ver Cardápio Completo & Encomendas</a>
+</div>
+    </main>
+
+    <!-- Contato e Localização -->
+    <section class="container" id="contato">
+        <h2 class="titulo-secao">Atendimento & Ofertas</h2>
+        <div class="contato-wrapper">
+            
+            <!-- Botão do Whats -->
+            <div class="info-box">
+                <h3>📍 Faça seu Pedido</h3>
+                <p><strong>Endereço:</strong> Rua Orlando Ometo, 165 </p>
+                <p>⏰ <strong>Horário:</strong> Seg a Sáb das 06h às 19h e Domingo das 06h às 12h</p>
+                <p style="margin-bottom: 1.2rem;">📱 Peça direto pelo nosso WhatsApp:</p>
+                
+                <a href="#" class="btn-whatsapp" onclick="mostrarConfirmacao(this)">💬 Encomendar pelo WhatsApp</a>
+            </div>
+            
+            <!-- Cadastro apenas com E-mail para ofertas -->
+            <div class="info-box">
+                <h3>✉️ Clube de Ofertas</h3>
+                <p class="subtexto">Receba o cardápio do dia e avisos de fornadas quentinhas direto no seu e-mail!</p>
+
+                <form class="form-novidades">
+                    <input type="email" placeholder="Digite seu e-mail" required>
+                    <button type="submit">Quero receber promoções</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+        <p>&copy; Padaria Nossa Senhora Aparecida | Tel: (14) 3646-3465</p>
+    </footer>
+
+    <!-- Conectando o arquivo JavaScript -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>

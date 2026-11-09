@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FaTech Manager - Listagem de Clientes</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- CSS customizado -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Navbar do Sistema -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="cadastro.html">
+        <i class="bi bi-person-badge-fill me-2"></i>Sistema de Gestão
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="cadastro.html"><i class="bi bi-person-plus me-1"></i>Novo Cadastro</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active fw-semibold" href="listagem.html"><i class="bi bi-journal-text me-1"></i>Clientes</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo Principal -->
+  <main class="container pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-11 col-xl-10">
+
+        <!-- Cartão da Listagem -->
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-white py-3 border-bottom border-primary border-3 d-flex justify-content-between align-items-center">
+            <h4 class="card-title text-primary mb-0">
+              <i class="bi bi-people me-2"></i>Clientes Cadastrados
+            </h4>
+            <span id="total-clientes" class="badge bg-primary fs-6">Total: 0 clientes</span>
+          </div>
+
+          <div class="card-body p-0">
+            <!-- Alerta de lista vazia -->
+            <div id="alerta-vazio" class="alert alert-info text-center py-4 d-none">
+              <i class="bi bi-info-circle fs-1 mb-3 d-block text-muted"></i>
+              Nenhum cliente cadastrado no momento.
+            </div>
+
+            <!-- Tabela responsiva -->
+            <div class="table-responsive">
+              <table class="table table-striped table-hover align-middle mb-0" id="tabela-clientes">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" style="width: 10%;">Nº Cadastro</th>
+                    <th scope="col">Nome do Cliente</th>
+                    <th scope="col" style="width: 18%;">Telefone</th>
+                    <th scope="col" style="width: 20%;">Área / Setor</th>
+                    <th scope="col" style="width: 20%; text-align: center;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="corpo-tabela">
+                  <!-- Linhas renderizadas via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-white py-4 mt-5 border-top">
+    <div class="container text-center">
+      <p class="mb-0 text-muted small">&copy; 2026 FaTech Manager - Sistema de Gestão de Clientes</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       MODAL DE CONFIRMAÇÃO - REMOVER CLIENTE
+       ============================================================ -->
+  <div class="modal fade" id="modalRemover" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title fw-bold" id="modalRemoverLabel">
+            <i class="bi bi-trash me-2"></i>Confirmar Exclusão
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja excluir o cliente <strong id="nome-cliente-remover"></strong>?</p>
+          <p class="text-muted small">Esta ação não pode ser desfeita.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btn-confirmar-remover">Excluir Cliente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL DE EDIÇÃO - EDITAR CLIENTE
+       ============================================================ -->
+  <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow">
+        <form id="form-editar-cliente" class="needs-validation" novalidate>
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title fw-bold" id="modalEditarLabel">
+              <i class="bi bi-pencil-square me-2"></i>Editar Cliente
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="id-cliente-editar">
+
+            <div class="row g-3">
+              <!-- Nome -->
+              <div class="col-md-6">
+                <label for="edit-nome" class="form-label">Nome Completo</label>
+                <input type="text" class="form-control" id="edit-nome" placeholder="Nome completo" required>
+                <div class="invalid-feedback" id="erro-edit-nome"></div>
+              </div>
+
+              <!-- E-mail -->
+              <div class="col-md-6">
+                <label for="edit-email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="edit-email" placeholder="usuario@dominio.com" required>
+                <div class="invalid-feedback" id="erro-edit-email"></div>
+              </div>
+
+              <!-- CPF -->
+              <div class="col-md-6">
+                <label for="edit-cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="edit-cpf" placeholder="000.000.000-00" required>
+                <div class="invalid-feedback" id="erro-edit-cpf"></div>
+              </div>
+
+              <!-- Telefone -->
+              <div class="col-md-6">
+                <label for="edit-telefone" class="form-label">Telefone / WhatsApp</label>
+                <input type="tel" class="form-control" id="edit-telefone" placeholder="(00) 99999-9999" required>
+                <div class="invalid-feedback" id="erro-edit-telefone"></div>
+              </div>
+
+              <!-- Setor -->
+              <div class="col-md-6">
+                <label for="edit-setor" class="form-label">Área / Setor de Atuação</label>
+                <select class="form-select" id="edit-setor" required>
+                  <option value="" selected disabled>Selecione o setor...</option>
+                  <option value="Desenvolvimento de Software">Desenvolvimento de Software</option>
+                  <option value="Gestão Empresarial">Gestão Empresarial</option>
+                  <option value="Logística">Logística</option>
+                  <option value="Sistemas de Informação">Sistemas de Informação</option>
+                  <option value="Comercial">Comercial</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Recursos Humanos">Recursos Humanos</option>
+                  <option value="Outro">Outro</option>
+                </select>
+                <div class="invalid-feedback" id="erro-edit-setor"></div>
+              </div>
+
+              <!-- Observações -->
+              <div class="col-12">
+                <label for="edit-observacoes" class="form-label">Observações Gerais</label>
+                <textarea class="form-control" id="edit-observacoes" rows="3" placeholder="Informações adicionais..."></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TOAST - NOTIFICAÇÃO DE SUCESSO
+       ============================================================ -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast-sucesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <i class="bi bi-check-circle me-2"></i>
+        <strong class="me-auto">Sucesso</strong>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
+      <div class="toast-body" id="mensagem-toast">
+        Operação realizada com sucesso.
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Módulos de validação e lógica da listagem -->
+  <script type="module" src="arquivos_js/functions/validacoes.js"></script>
+  <script type="module" src="arquivos_js/listagem.js"></script>
+</body>
+</html>
